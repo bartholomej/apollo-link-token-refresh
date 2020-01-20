@@ -1,4 +1,4 @@
-import { Observable, Operation, NextLink, FetchResult } from 'apollo-link';
+import { Observable, Operation, NextLink, FetchResult } from '@apollo/client/core';
 
 export interface SubscriberInterface {
   next?: (result: FetchResult) => void;
@@ -52,7 +52,7 @@ export class OperationQueuing {
 
   public consumeQueue(): void {
     this.queuedRequests.forEach(request => {
-      const key = request.operation.toKey();
+      const key = request.operation.operationName;
       this.subscriptions[key] =
         request.forward(request.operation).subscribe(request.subscriber);
 
